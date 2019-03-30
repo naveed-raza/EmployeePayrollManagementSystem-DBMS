@@ -1,0 +1,27 @@
+create view DEPT_AF AS
+select e_id, e_name, e_phone, e_email, e_address, e_gender, pay_id, job_id
+from employees
+where d_id = 'AF_001';
+
+
+create view DET_101 AS
+select e_name, d_id, job_title, start_date, end_date
+from employees, jobs, job_details
+where employees.e_id = 101 and job_details.e_id = 101 and employees.job_id = jobs.job_id;
+
+
+        create view EMP_100 AS
+	select e.e_name, e.pay_id, p.salary, p.leave, p.tax, p.loan, b.bonus, b.allowances, (p.salary + b.bonus + b.allowances - p.loan -p.leave - (p.tax * p.salary / 100)) totalsalary
+	from employees e, payments p, bonuses b
+	where e.e_id = 100 and e.pay_id = p.pay_id and b.bonus_id = p.bonus_id;
+
+create view JOB_AMB AS
+select  e.e_id, e.e_name, j.job_title, d.d_name
+from employees e, jobs j, departments d
+where e.job_id = 'AMB' and e.job_id = j.job_id and e.d_id = d.d_id; 
+
+
+create view EMP_BON AS
+select e.e_id, e.e_name, p.pay_id, b.bonus_id, b.bonus, b.allowances
+from  bonuses b, employees e, payments p
+where b.bonus > 0 and b.bonus_id = p.bonus_id and p.pay_id = e.pay_id ;
